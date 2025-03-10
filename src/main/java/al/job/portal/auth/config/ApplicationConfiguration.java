@@ -1,6 +1,6 @@
-package org.spring_web.jobportalapplication.config;
+package al.job.portal.auth.config;
 
-import org.spring_web.jobportalapplication.repository.UserRepository;
+import al.job.portal.domain.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

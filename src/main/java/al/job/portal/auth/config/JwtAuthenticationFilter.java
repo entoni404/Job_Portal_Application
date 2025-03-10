@@ -1,6 +1,7 @@
-package org.spring_web.jobportalapplication.config;
+package al.job.portal.auth.config;
 
 
+import al.job.portal.auth.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
