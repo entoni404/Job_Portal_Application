@@ -1,8 +1,8 @@
-package org.spring_web.jobportalapplication.model.entity;
+package al.job.portal.domain.model.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.spring_web.jobportalapplication.model.enums.ApplicationStatus;
+import al.job.portal.domain.model.enums.ApplicationStatus;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -95,27 +95,63 @@ public class Application {
         this.applicationDate = applicationDate;
     }
 
-    @Override
-    public String toString() {
-        return "Application{" +
-                "id=" + id +
-                ", jobSeeker=" + jobSeeker +
-                ", job=" + job +
-                ", status=" + applicationStatus +
-                ", coverLetter='" + coverLetter + '\'' +
-                ", applicationDate=" + applicationDate +
-                '}';
+    public static Builder builder() {
+        return new Builder();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Application that = (Application) o;
-        return Objects.equals(id, that.id);
-    }
+    public static class Builder {
+        private Long applicationId;
+        private User jobSeeker;
+        private Job job;
+        private ApplicationStatus applicationStatus;
+        private String coverLetter;
+        private LocalDateTime applicationDate;
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+        public Builder applicationId(Long applicationId) {
+            this.applicationId = applicationId;
+
+            return this;
+        }
+
+        public Builder jobSeeker(User jobSeeker) {
+            this.jobSeeker = jobSeeker;
+
+            return this;
+        }
+
+        public Builder job(Job job) {
+            this.job = job;
+
+            return this;
+        }
+
+        public Builder applicationStatus(ApplicationStatus applicationStatus) {
+            this.applicationStatus = applicationStatus;
+
+            return this;
+        }
+
+        public Builder coverLetter(String coverLetter) {
+            this.coverLetter = coverLetter;
+
+            return this;
+        }
+
+        public Builder applicationDate(LocalDateTime applicationDate) {
+            this.applicationDate = applicationDate;
+
+            return this;
+        }
+
+        public Application build(){
+            return new Application(
+                applicationId,
+                jobSeeker,
+                job,
+                applicationStatus,
+                coverLetter,
+                applicationDate
+            );
+        }
     }
 }
