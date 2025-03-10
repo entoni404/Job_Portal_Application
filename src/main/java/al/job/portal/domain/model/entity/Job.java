@@ -1,8 +1,8 @@
-package org.spring_web.jobportalapplication.model.entity;
+package al.job.portal.domain.model.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.spring_web.jobportalapplication.model.enums.JobEntryLevel;
+import al.job.portal.domain.model.enums.JobEntryLevel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -170,33 +170,110 @@ public class Job {
         this.employer = employer;
     }
 
-    @Override
-    public String toString() {
-        return "Job{" +
-                "jobId=" + jobId +
-                ", jobTitle='" + jobTitle + '\'' +
-                ", jobDescription='" + jobDescription + '\'' +
-                ", jobLocation='" + jobLocation + '\'' +
-                ", jobFunction='" + jobFunction + '\'' +
-                ", workingTime='" + workingTime + '\'' +
-                ", publishingDate=" + publishingDate +
-                ", applicationDeadline=" + applicationDeadline +
-                ", jobEntryLevel=" + jobEntryLevel +
-                ", applicationList=" + applicationList +
-                ", reviewList=" + reviewList +
-                ", employer=" + employer +
-                '}';
+    public static Builder builder(){
+        return new Builder();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Job job = (Job) o;
-        return Objects.equals(jobId, job.jobId);
-    }
+    public static class Builder {
+        private Long jobId;
+        private String jobTitle;
+        private String jobDescription;
+        private String jobLocation;
+        private String jobFunction;
+        private String workingTime;
+        private LocalDateTime publishingDate;
+        private LocalDateTime applicationDeadline;
+        private JobEntryLevel jobEntryLevel;
+        private List<Application> applicationList;
+        private List<Review> reviewList;
+        private User employer;
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(jobId);
+        public Builder jobId(Long jobId) {
+            this.jobId = jobId;
+
+            return this;
+        }
+
+        public Builder jobTitle(String jobTitle) {
+            this.jobTitle = jobTitle;
+
+            return this;
+        }
+
+        public Builder jobDescription(String jobDescription) {
+            this.jobDescription = jobDescription;
+
+            return this;
+        }
+
+        public Builder jobLocation(String jobLocation) {
+            this.jobLocation = jobLocation;
+            return this;
+        }
+
+        public Builder jobFunction(String jobFunction) {
+            this.jobFunction = jobFunction;
+
+            return this;
+        }
+
+        public Builder workingTime(String workingTime) {
+            this.workingTime = workingTime;
+
+            return this;
+        }
+
+        public Builder publishingDate(LocalDateTime publishingDate) {
+            this.publishingDate = publishingDate;
+
+            return this;
+        }
+
+        public Builder applicationDeadline(LocalDateTime applicationDeadline) {
+            this.applicationDeadline = applicationDeadline;
+
+            return this;
+        }
+
+        public Builder jobEntryLevel(JobEntryLevel jobEntryLevel) {
+            this.jobEntryLevel = jobEntryLevel;
+
+            return this;
+        }
+
+        public Builder applicationList(List<Application> applicationList) {
+            this.applicationList = applicationList;
+
+            return this;
+        }
+
+        public Builder reviewList(List<Review> reviewList) {
+            this.reviewList = reviewList;
+            
+            return this;
+        }
+        
+        public Builder employer(User employer) {
+            this.employer = employer;
+            
+            return this;
+        }
+        
+        public Job build() {
+            return new Job(
+                jobId,
+                jobTitle,
+                jobDescription,
+                jobLocation,
+                jobFunction,
+                workingTime,
+                publishingDate,
+                applicationDeadline,
+                jobEntryLevel,
+                applicationList,
+                reviewList,
+                employer
+            );
+        }
     }
 }
