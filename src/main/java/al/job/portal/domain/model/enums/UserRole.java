@@ -1,4 +1,4 @@
-package org.spring_web.jobportalapplication.model.enums;
+package al.job.portal.domain.model.enums;
 
 public enum UserRole {
     ADMIN, EMPLOYER, JOB_SEEKER
