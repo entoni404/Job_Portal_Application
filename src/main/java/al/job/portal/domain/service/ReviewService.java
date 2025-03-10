@@ -16,8 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class ReviewService {
     private final JobRepository jobRepository;
@@ -60,6 +58,4 @@ public class ReviewService {
 
         return reviewPage.map(reviewMapper::toDTO);
     }
-
-
 }

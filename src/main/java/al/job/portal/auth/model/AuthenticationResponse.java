@@ -1,7 +1,6 @@
 package al.job.portal.auth.model;
 
 public class AuthenticationResponse {
-
     private String token;
 
     public AuthenticationResponse() {

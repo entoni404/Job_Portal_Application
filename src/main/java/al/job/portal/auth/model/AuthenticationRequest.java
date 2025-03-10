@@ -1,7 +1,6 @@
 package al.job.portal.auth.model;
 
 public class AuthenticationRequest {
-
     private String email;
     private String password;
 

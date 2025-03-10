@@ -19,14 +19,20 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
 
     public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+    }
+
+    public UserResource getUser(Long id){
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorMessage.USER_NOT_FOUND.getValue()));
+
+        return userMapper.toDTO(user);
     }
 
     public UserResource getUserByEmail(String email) {

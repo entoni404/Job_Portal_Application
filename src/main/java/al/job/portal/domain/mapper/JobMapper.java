@@ -6,9 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JobMapper {
-
     public JobResource toDTO(Job job) {
-
         return new JobResource(
                 job.getJobTitle(),
                 job.getJobDescription(),

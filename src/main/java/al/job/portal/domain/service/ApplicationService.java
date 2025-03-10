@@ -15,20 +15,22 @@ import al.job.portal.domain.repository.ApplicationRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ApplicationService {
-
-    private final ApplicationRepository applicationRepository;
     private final ApplicationMapper applicationMapper;
-    private final JobRepository jobRepository;
+    private final CreateApplicationMapper createApplicationMapper;
+    private final ApplicationRepository applicationRepository;
 
-    public ApplicationService(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, JobRepository jobRepository) {
-        this.applicationRepository = applicationRepository;
+    public ApplicationService(
+            ApplicationMapper applicationMapper,
+            CreateApplicationMapper createApplicationMapper,
+            ApplicationRepository applicationRepository
+    ) {
         this.applicationMapper = applicationMapper;
-        this.jobRepository = jobRepository;
+        this.createApplicationMapper = createApplicationMapper;
+        this.applicationRepository = applicationRepository;
     }
 
     @Transactional
@@ -64,7 +66,6 @@ public class ApplicationService {
         return applicationPage.map(applicationMapper::toDTO);
     }
 
-
     @Transactional
     public ApplicationResource updateApplicationStatus(Long id, ApplicationStatus status) {
         Application application = applicationRepository
@@ -75,9 +76,6 @@ public class ApplicationService {
 
         applicationRepository.save(application);
 
-        return applicationMapper.toDTO(applicationRepository.save(application));
-
+        return applicationMapper.toDTO(application);
     }
-
-
 }

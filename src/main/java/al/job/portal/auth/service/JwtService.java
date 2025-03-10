@@ -16,18 +16,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-
     private static final String JWT_SECRET = "Rf1r7TaWpzaLVloa+3RgtNfzjOr6bNPb2SFSiliCrE19B79MnEXv1op6COftB8KB";
-
-
-    public String extractUsername(String jwt) {
-        return extractClaim(jwt, Claims::getSubject);
-    }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
 
     public String generateSimpleToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -48,19 +37,34 @@ public class JwtService {
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
+        if (token == null || token.isEmpty() || isTokenExpired(token)) {
+            return false;
+        }
+
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+
+        return username.equals(userDetails.getUsername());
     }
 
     public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractClaims(token);
+
+        return claimsResolver.apply(claims);
+    }
+
+    public String extractUsername(String jwt) {
+        return extractClaim(jwt, Claims::getSubject);
+    }
+
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public Claims extractAllClaims(String token) {
+    public Claims extractClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -71,6 +75,7 @@ public class JwtService {
 
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(JWT_SECRET);
+
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

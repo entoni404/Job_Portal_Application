@@ -35,6 +35,5 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse("INVALID_INPUT", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
-
 }
 

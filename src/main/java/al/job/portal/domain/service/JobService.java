@@ -12,12 +12,10 @@ import al.job.portal.domain.repository.JobRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class JobService {
-
     private final JobRepository jobRepository;
     private final JobMapper jobMapper;
 
@@ -56,7 +54,6 @@ public class JobService {
         return jobPage.map(jobMapper::toDTO);
     }
 
-
     public Page<JobResource> searchByEmployer(String title, String location, User employer, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
@@ -68,8 +65,5 @@ public class JobService {
         Page<Job> jobPage = jobRepository.findAll(specification, pageable);
 
         return jobPage.map(jobMapper::toDTO);
-
     }
-
-
 }
