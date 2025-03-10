@@ -1,4 +1,4 @@
-package org.spring_web.jobportalapplication.model.entity;
+package al.job.portal.domain.model.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -114,5 +114,65 @@ public class Review {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+        private int rating;
+        private String comment;
+        private LocalDateTime createdDate;
+        private Job job;
+        private User employer;
+
+        public Builder id(Long id) {
+            this.id = id;
+
+            return this;
+        }
+
+        public Builder rating(int rating) {
+            this.rating = rating;
+
+            return this;
+        }
+
+        public Builder comment(String comment) {
+            this.comment = comment;
+
+            return this;
+        }
+
+        public Builder createdDate(LocalDateTime createdDate) {
+            this.createdDate = createdDate;
+
+            return this;
+        }
+
+        public Builder job(Job job) {
+            this.job = job;
+
+            return this;
+        }
+
+        public Builder employer(User employer) {
+            this.employer = employer;
+
+            return this;
+        }
+
+        public Review build() {
+            return new Review(
+                id,
+                rating,
+                comment,
+                createdDate,
+                job,
+                employer
+            );
+        }
     }
 }
